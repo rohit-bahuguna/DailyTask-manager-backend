@@ -10,7 +10,7 @@ const {
 const { isLoggedIn, customRole } = require('../middlewares/auth');
 
 // user routes
-taskRouter.route('/createtask').get(isLoggedIn, createTask);
+taskRouter.route('/createtask').post(isLoggedIn, createTask);
 taskRouter.route('/getalltask').get(isLoggedIn, getAlltask);
 taskRouter.route('/getonetask').get(isLoggedIn, getOnetask);
 
