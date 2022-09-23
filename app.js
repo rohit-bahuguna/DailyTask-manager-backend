@@ -32,5 +32,18 @@ app.use(
 app.use('/api/v1', user);
 app.use('/api/v1', task);
 
+//home route
+
+app.get('/', (req, res) => {
+	res
+		.status(200)
+		.json({
+			host: req.hostname,
+			port: process.env.PORT,
+			message: 'Server is Runing',
+			Author: 'Rohit Bahuguna'
+		});
+});
+
 // expored to index.js
 module.exports = app;

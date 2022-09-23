@@ -1,6 +1,7 @@
 const BigPromise = require('../middlewares/bigPromise');
 const customError = require('../utils/customError');
 const taskModel = require('../models/taskModel');
+const userModel = require('../models/userModel');
 const cloudinary = require('cloudinary').v2;
 
 exports.createTask = BigPromise(async (req, res, next) => {
@@ -33,22 +34,13 @@ exports.createTask = BigPromise(async (req, res, next) => {
 
 exports.getAlltask = BigPromise(async (req, res, next) => {
 	const totaltaskCount = await taskModel.countDocuments();
-
-	const task = await taskModel.find({ _id: req.body.user });
+	console.log(req.user);
+	const tasks = await taskModel.find({ user: req.user._id });
 
 	res.status(200).json({
 		success: true,
-		task,
+		tasks,
 		totaltaskCount
-	});
-});
-
-exports.adminGetAlltask = BigPromise(async (req, res, next) => {
-	const task = await taskModel.find();
-
-	res.status(200).json({
-		success: true,
-		task
 	});
 });
 
@@ -63,5 +55,23 @@ exports.getOnetask = BigPromise(async (req, res, next) => {
 	res.status(200).json({
 		success: true,
 		task
+	});
+});
+
+exports.adminGetAlltask = BigPromise(async (req, res, next) => {
+	const task = await taskModel.find();
+
+	res.status(200).json({
+		success: true,
+		task
+	});
+});
+
+exports.adminGetAllUsers = BigPromise(async (req, res, next) => {
+	const users = await userModel.find();
+
+	res.status(200).json({
+		success: true,
+		users
 	});
 });
