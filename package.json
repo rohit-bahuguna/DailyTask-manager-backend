@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "NODE_ENV=DEVELOPMENT& nodemon server",
+    "prod": "NODE_ENV=PRODUCTION& nodemon backend/server"
   },
   "author": "rohit bahuguna",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.4",
     "morgan": "^1.10.0",
+    "uuid": "^9.0.0",
     "validator": "^13.7.0"
   }
 }

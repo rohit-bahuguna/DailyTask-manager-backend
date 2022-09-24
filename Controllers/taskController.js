@@ -2,6 +2,8 @@ const BigPromise = require('../middlewares/bigPromise');
 const customError = require('../utils/customError');
 const taskModel = require('../models/taskModel');
 const userModel = require('../models/userModel');
+const { response } = require('../app');
+
 const cloudinary = require('cloudinary').v2;
 
 exports.createTask = BigPromise(async (req, res, next) => {
@@ -34,7 +36,7 @@ exports.createTask = BigPromise(async (req, res, next) => {
 
 exports.getAlltask = BigPromise(async (req, res, next) => {
 	const totaltaskCount = await taskModel.countDocuments();
-	console.log(req.user);
+
 	const tasks = await taskModel.find({ user: req.user._id });
 
 	res.status(200).json({
@@ -73,5 +75,44 @@ exports.adminGetAllUsers = BigPromise(async (req, res, next) => {
 	res.status(200).json({
 		success: true,
 		users
+	});
+});
+
+exports.adminDeleteTask = BigPromise(async (req, res, next) => {
+	const deleted = await taskModel.deleteMany({ status: 'pending' });
+	res.status(200).json({
+		success: true,
+		message: 'deleted',
+		deleted
+	});
+});
+
+exports.updateTask = BigPromise(async (req, res, next) => {
+	const { id } = req.params;
+
+	const updatedTask = await taskModel.findByIdAndUpdate(
+		id,
+		{ status: req.body.status },
+		{
+			new: true
+		}
+	);
+
+	res.status(200).json({
+		success: true,
+		message: 'task updated successfully',
+		updatedTask
+	});
+});
+
+exports.deleteTask = BigPromise(async (req, res, next) => {
+	const { id } = req.params;
+
+	const deleted = await taskModel.findByIdAndRemove(id);
+
+	res.status(200).json({
+		success: true,
+		message: 'Task Deleted Successfully',
+		deleted
 	});
 });

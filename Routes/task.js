@@ -5,7 +5,10 @@ const {
 	getAlltask,
 	adminGetAlltask,
 	getOnetask,
-	adminGetAllUsers
+	adminGetAllUsers,
+	adminDeleteTask,
+	updateTask,
+	deleteTask
 } = require('../Controllers/taskController');
 
 const { isLoggedIn, customRole } = require('../middlewares/auth');
@@ -14,7 +17,8 @@ const { isLoggedIn, customRole } = require('../middlewares/auth');
 taskRouter.route('/createtask').post(isLoggedIn, createTask);
 taskRouter.route('/getalltask').get(isLoggedIn, getAlltask);
 taskRouter.route('/getonetask/:id').get(isLoggedIn, getOnetask);
-
+taskRouter.route('/updatetask/:id').put(isLoggedIn, updateTask);
+taskRouter.route('/deletetask/:id').delete(isLoggedIn, deleteTask);
 taskRouter
 	.route('/admingetalltask')
 	.get(isLoggedIn, customRole('admin'), adminGetAlltask);
@@ -22,5 +26,9 @@ taskRouter
 taskRouter
 	.route('/admingetalluser')
 	.get(isLoggedIn, customRole('admin'), adminGetAllUsers);
+
+taskRouter
+	.route('/admindeletealltask')
+	.delete(isLoggedIn, customRole('admin'), adminDeleteTask);
 
 module.exports = taskRouter;

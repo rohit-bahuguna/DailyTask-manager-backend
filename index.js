@@ -1,6 +1,7 @@
 const app = require('./app');
 const connnectWithDb = require('./config/db');
 const cloudinary = require('cloudinary');
+const PORT = process.env.PORT || 3500;
 // connection with mongonDb
 connnectWithDb();
 
@@ -12,6 +13,6 @@ cloudinary.config({
 	api_secret: process.env.CLLOUDINARY_API_SECRET
 });
 
-app.listen(process.env.PORT, () => {
-	console.log(`server is runing at port ${process.env.PORT}`);
+app.listen(PORT, () => {
+	console.log(`server is runing at port ${PORT}`);
 });
