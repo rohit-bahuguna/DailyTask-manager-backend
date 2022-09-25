@@ -3,7 +3,6 @@ const cookieToken = (user, response) => {
 	const options = {
 		sameSite: 'none',
 		secure: true,
-
 		expires: new Date(
 			Date.now() + process.env.COOKIE_TIME * 24 * 60 * 60 * 1000
 		),

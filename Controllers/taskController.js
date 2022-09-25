@@ -8,7 +8,7 @@ const cloudinary = require('cloudinary').v2;
 
 exports.createTask = BigPromise(async (req, res, next) => {
 	let docsArray = [];
-
+	console.log(req.files);
 	if (req.files) {
 		let docs = Object.keys(req.files).map(key => req.files[key]);
 
@@ -60,8 +60,11 @@ exports.getOnetask = BigPromise(async (req, res, next) => {
 	});
 });
 
-exports.adminGetAlltask = BigPromise(async (req, res, next) => {
-	const task = await taskModel.find();
+exports.getTaskByStatus = BigPromise(async (req, res, next) => {
+	const { status } = req.params;
+	const id = req.user._id;
+
+	const task = await taskModel.find({ user: id, status: status });
 
 	res.status(200).json({
 		success: true,
@@ -69,12 +72,12 @@ exports.adminGetAlltask = BigPromise(async (req, res, next) => {
 	});
 });
 
-exports.adminGetAllUsers = BigPromise(async (req, res, next) => {
-	const users = await userModel.find();
+exports.adminGetAlltask = BigPromise(async (req, res, next) => {
+	const task = await taskModel.find();
 
 	res.status(200).json({
 		success: true,
-		users
+		task
 	});
 });
 
@@ -114,5 +117,16 @@ exports.deleteTask = BigPromise(async (req, res, next) => {
 		success: true,
 		message: 'Task Deleted Successfully',
 		deleted
+	});
+});
+
+exports.adminGetTaskByStatus = BigPromise(async (req, res, next) => {
+	const { status } = req.params;
+
+	const task = await taskModel.find({ status });
+
+	res.status(200).json({
+		success: true,
+		task
 	});
 });

@@ -6,7 +6,7 @@ const taskSchema = new mongoose.Schema(
 			type: String,
 			require: [true, 'please provide a task heading '],
 			trim: true,
-			maxlength: [50, 'task heading shoud not be more then 50 characters']
+			maxlength: [100, 'task heading shoud not be more then 50 characters']
 		},
 		description: {
 			type: String,

@@ -6,7 +6,8 @@ const {
 	logIn,
 	logOut,
 	adminAllUser,
-	adminGetOneUser
+	adminGetOneUser,
+	adminGetAllUser
 } = require('../Controllers/userController');
 
 const { isLoggedIn, customRole } = require('../middlewares/auth');
