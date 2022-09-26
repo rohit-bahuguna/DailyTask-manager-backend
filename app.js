@@ -8,6 +8,7 @@ const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const path = require('path');
 
+const errorMiddleware = require('./middlewares/error');
 // created app here
 const app = express();
 
@@ -66,7 +67,6 @@ app.get('/', (req, res) => {
 
 // error middleware
 
-const errorMiddleware = require('./middlewares/error');
 app.use(errorMiddleware);
 
 // expored to index.js
